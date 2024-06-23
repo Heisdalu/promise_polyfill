@@ -1,0 +1,1 @@
+learning to implement promises from scratch..got ideas from this [repo](https://github.com/Jaynil1611/Vanilla-JS-Practice/blob/main/promise-polyfill/MyPromise.js) and then implemented my own promise.all,race, any, all settled for learning purposes.
