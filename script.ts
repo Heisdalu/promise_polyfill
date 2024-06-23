@@ -72,6 +72,10 @@ class MyPromise {
     return this.then(null, onRejected);
   }
 
+  finally(onFunc: any) {
+    return this.then(onFunc, onFunc);
+  }
+
   static resolve(value: any) {
     return new MyPromise((res: any) => res(value));
   }
@@ -87,6 +91,10 @@ class MyPromise {
     }
 
     return new MyPromise((resolve, reject) => {
+      if (arr.length === 0) {
+        resolve([]);
+      }
+
       arr.forEach((el) => {
         if (!(el instanceof MyPromise)) {
           Promise.resolve(el).then((el) => {
@@ -205,16 +213,16 @@ class MyPromise {
   }
 }
 
-const test = Promise.allSettled([Promise.reject(1), Promise.reject(2)]);
-console.log(test);
+// const test = Promise.allSettled([Promise.reject(1), Promise.reject(2)]);
+// console.log(test);
 
-const see = MyPromise.all([
-  MyPromise.resolve(30),
-  MyPromise.reject(10),
-  MyPromise.reject(20),
-  MyPromise.resolve(88),
-  MyPromise.reject(66),
-  MyPromise.resolve(100),
-]);
+// const see = MyPromise.all([
+//   MyPromise.resolve(30),
+//   MyPromise.reject(10),
+//   MyPromise.reject(20),
+//   MyPromise.resolve(88),
+//   MyPromise.reject(66),
+//   MyPromise.resolve(100),
+// ]);
 
-console.log(see, "see");
+// console.log(see, "see");

@@ -77,6 +77,9 @@ class MyPromise {
     catch(onRejected) {
         return this.then(null, onRejected);
     }
+    finally(onFunc) {
+        return this.then(onFunc, onFunc);
+    }
     static resolve(value) {
         return new MyPromise((res) => res(value));
     }
@@ -89,6 +92,9 @@ class MyPromise {
             throw new Error("expect an array");
         }
         return new MyPromise((resolve, reject) => {
+            if (arr.length === 0) {
+                resolve([]);
+            }
             arr.forEach((el) => {
                 if (!(el instanceof MyPromise)) {
                     Promise.resolve(el).then((el) => {
@@ -200,14 +206,14 @@ class MyPromise {
     }
 }
 _MyPromise_callbacks = new WeakMap(), _MyPromise_resolve = new WeakMap(), _MyPromise_reject = new WeakMap(), _MyPromise_settled = new WeakMap();
-const test = Promise.allSettled([Promise.reject(1), Promise.reject(2)]);
-console.log(test);
-const see = MyPromise.all([
-    MyPromise.resolve(30),
-    MyPromise.reject(10),
-    MyPromise.reject(20),
-    MyPromise.resolve(88),
-    MyPromise.reject(66),
-    MyPromise.resolve(100),
-]);
-console.log(see, "see");
+// const test = Promise.allSettled([Promise.reject(1), Promise.reject(2)]);
+// console.log(test);
+// const see = MyPromise.all([
+//   MyPromise.resolve(30),
+//   MyPromise.reject(10),
+//   MyPromise.reject(20),
+//   MyPromise.resolve(88),
+//   MyPromise.reject(66),
+//   MyPromise.resolve(100),
+// ]);
+// console.log(see, "see");
